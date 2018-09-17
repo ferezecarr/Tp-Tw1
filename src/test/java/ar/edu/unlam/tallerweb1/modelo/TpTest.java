@@ -116,17 +116,28 @@ public class TpTest extends SpringTest {
 		assertThat(paises.get(0).getIdioma());
 	}
 	
-	/*@Transactional
+	@SuppressWarnings("unchecked")
+	@Transactional
 	@Rollback
 	@Test
 	public void testQueBusqueTodosLosPaisesCuyaCapitalEstanAlNorteDelTropicoDeCancer() {
 		pais.setCapital("Otawa");
 		
+		ubicacion.setLatitud(24D);
+		ubicacion.setLongitud(37D);
+		
 		sesion.save(pais);
 		
+		//--- 3.Buscar todos los paises cuya capital esta al norte del tropico de cancer ---//
+		
 		paises = sesion.createCriteria(Pais.class)
-				.add(Restrictions.eq("", value))
-	}*/
+				.createAlias("pais.capital", "cap")
+				.createAlias("cap.ubicacionGeografica", "ubi")
+				.add(Restrictions.gt("ubi.latitud", 24D))
+				.list();
+		
+		assertThat(paises).hasSize(1);
+	}
 	
 	@Transactional
 	@Rollback

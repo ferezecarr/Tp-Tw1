@@ -11,7 +11,7 @@ public class Ciudad {
 	private String nombre;
 	
 	@ManyToOne(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
-	private Ubicacion ubicacion;
+	private Ubicacion ubicacionGeografica;
 	
 	@ManyToOne(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
 	private Pais pais;
@@ -32,12 +32,12 @@ public class Ciudad {
 		this.nombre = nombre;
 	}
 
-	public Ubicacion getUbicacion() {
-		return ubicacion;
+	public Ubicacion getUbicacionGeografica() {
+		return ubicacionGeografica;
 	}
 
-	public void setUbicacion(Ubicacion ubicacion) {
-		this.ubicacion = ubicacion;
+	public void setUbicacion(Ubicacion ubicacionGeografica) {
+		this.ubicacionGeografica = ubicacionGeografica;
 	}
 
 	public Pais getPais() {
