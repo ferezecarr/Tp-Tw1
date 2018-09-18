@@ -48,15 +48,12 @@ public class TpTest extends SpringTest {
 	public void testQueBusqueTodosLosPaisesDeHablaInglesa() {
 		pais.setNombre("Inglaterra");
 		pais.setIdioma("Ingles");
-		pais.setCapital("Londres");
 		
 		paisDos.setNombre("España");
 		paisDos.setIdioma("Español");
-		paisDos.setCapital("Madrid");
 		
 		paisTres.setNombre("Estados Unidos");
 		paisTres.setIdioma("Ingles");
-		paisTres.setCapital("Washington");
 		
 		sesion.save(pais);
 		sesion.save(paisDos);
@@ -72,7 +69,6 @@ public class TpTest extends SpringTest {
 		assertThat(paises).isNotEmpty();
 		assertThat(paises.get(0).getIdioma()).isEqualTo("Ingles");
 		assertThat(paises.get(0).getNombre());
-		assertThat(paises.get(0).getCapital());
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -86,17 +82,17 @@ public class TpTest extends SpringTest {
 		
 		pais.setNombre("Argentina");
 		pais.setIdioma("Argentino");
-		pais.setCapital("Ciudad Autonoma de la ciudad de Buenos Aires");
+		
 		pais.setContinente(continente);
 		
 		paisDos.setNombre("Alemania");
 		paisDos.setIdioma("Aleman");
-		paisDos.setCapital("Berlin");
+		
 		paisDos.setContinente(continenteDos);
 		
 		paisTres.setNombre("Rusia");
 		paisTres.setIdioma("Ruso");
-		paisTres.setCapital("Moscu");
+		
 		paisTres.setContinente(continenteTres);
 		
 		sesion.save(pais);
@@ -113,7 +109,6 @@ public class TpTest extends SpringTest {
 		assertThat(paises).hasSize(1);
 		assertThat(paises).isNotEmpty();
 		assertThat(paises.get(0).getContinente().getNombre()).isEqualTo("Europa");
-		assertThat(paises.get(0).getCapital());
 		assertThat(paises.get(0).getNombre());
 		assertThat(paises.get(0).getIdioma());
 	}
@@ -123,22 +118,38 @@ public class TpTest extends SpringTest {
 	@Rollback
 	@Test
 	public void testQueBusqueTodosLosPaisesCuyaCapitalEstanAlNorteDelTropicoDeCancer() {
-		pais.setCapital("Otawa");
-		
 		ubicacion.setLatitud(24D);
-		ubicacion.setLongitud(37D);
+		ubicacionDos.setLatitud(37D);
+		ubicacionTres.setLatitud(80D);
+		
+		ciudad.setUbicacion(ubicacion);
+		ciudadDos.setUbicacion(ubicacionDos);
+		ciudadTres.setUbicacion(ubicacionTres);
+		
+		pais.setNombre("Egipto");
+		paisDos.setNombre("Canada");
+		paisTres.setNombre("Inglaterra");
+		
+		pais.setCapital(ciudad);
+		paisDos.setCapital(ciudadDos);
+		paisTres.setCapital(ciudadTres);
 		
 		sesion.save(pais);
+		sesion.save(paisDos);
+		sesion.save(paisTres);
 		
 		//--- 3.Buscar todos los paises cuya capital esta al norte del tropico de cancer ---//
 		
 		paises = sesion.createCriteria(Pais.class)
-				.createAlias("pais.capital", "cap")
+				.createAlias("capital", "cap")
 				.createAlias("cap.ubicacionGeografica", "ubi")
 				.add(Restrictions.gt("ubi.latitud", 24D))
 				.list();
 		
-		assertThat(paises).hasSize(1);
+		assertThat(paises).hasSize(2);
+		assertThat(paises).isNotEmpty();
+		assertThat(paises).isNotNull();
+		assertThat(paises.get(0).getNombre());
 	}
 	
 	@SuppressWarnings("unchecked")

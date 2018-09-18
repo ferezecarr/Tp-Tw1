@@ -10,7 +10,7 @@ public class Ciudad {
 	private Long id;
 	private String nombre;
 	
-	@ManyToOne(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
+	@OneToOne(cascade = { CascadeType.ALL })
 	private Ubicacion ubicacionGeografica;
 	
 	@ManyToOne(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
