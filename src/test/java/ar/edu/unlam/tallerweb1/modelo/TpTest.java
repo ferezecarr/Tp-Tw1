@@ -19,6 +19,7 @@ public class TpTest extends SpringTest {
 	private Ubicacion ubicacion , ubicacionDos , ubicacionTres;
 	private Session sesion;
 	private List<Pais> paises;
+	private List<Ciudad> ciudades;
 	
 
 	@Before
@@ -37,6 +38,7 @@ public class TpTest extends SpringTest {
 		ubicacionTres = new Ubicacion();
 		sesion = getSession();
 		paises = new ArrayList<Pais>();
+		ciudades = new ArrayList<Ciudad>();
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -139,12 +141,26 @@ public class TpTest extends SpringTest {
 		assertThat(paises).hasSize(1);
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Transactional
 	@Rollback
 	@Test
 	public void testQueBusqueTodasLasCiudadesDelHemisferioSur() {
+		ciudad.setNombre("Buenos Aires");
+		ubicacion.setLongitud(50D);
 		
+		ciudad.setUbicacion(ubicacion);
+		
+		sesion.save(ciudad);
+		sesion.save(ubicacion);
+		
+		/*ciudades = sesion.createCriteria(Ciudad.class)
+				.createAlias("ciudad.ubicacionGeografica", "ubi")
+				.add(Restrictions.eq("ubi.longitud", 50D))
+				.list();*/
+		
+		assertThat(ciudades).hasSize(1);
+				
 	}
-	
 	
 }
