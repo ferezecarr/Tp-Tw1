@@ -152,26 +152,11 @@ public class TpTest extends SpringTest {
 		assertThat(paises.get(0).getNombre());
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Transactional
 	@Rollback
 	@Test
 	public void testQueBusqueTodasLasCiudadesDelHemisferioSur() {
-		ciudad.setNombre("Buenos Aires");
-		ubicacion.setLongitud(50D);
 		
-		ciudad.setUbicacion(ubicacion);
-		
-		sesion.save(ciudad);
-		sesion.save(ubicacion);
-		
-		/*ciudades = sesion.createCriteria(Ciudad.class)
-				.createAlias("ciudad.ubicacionGeografica", "ubi")
-				.add(Restrictions.eq("ubi.longitud", 50D))
-				.list();*/
-		
-		assertThat(ciudades).hasSize(1);
-				
 	}
 	
 }

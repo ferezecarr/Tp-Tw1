@@ -13,22 +13,19 @@ public class ControladorCaracteres {
 	public ModelAndView operacion(@PathVariable String operacion , @PathVariable String valor , String resultado) {
 		ModelMap modelo = new ModelMap();
 		
-		String result = "";
-		
 		switch(operacion) {
 		
 			case "pasarAMayuscula":
-				result.toUpperCase();
+				resultado = valor.toUpperCase();
 				break;
 			
 			case "pasarAMinuscula":
-				result.toLowerCase();
+				resultado = valor.toLowerCase();
 				break;
 			
 			case "invertirOrden":
-				for(int i = 0 ; i < result.length() ; i++) {
-					result.charAt(i);
-				}
+				StringBuilder builder = new StringBuilder(valor);
+				resultado = builder.reverse().toString();
 				break;
 			
 			case "cantidadDeCaracteres":
@@ -40,7 +37,7 @@ public class ControladorCaracteres {
 		
 		modelo.put("operacion", operacion);
 		modelo.put("valor", valor);
-		modelo.put("resultado", result);
+		modelo.put("resultado", resultado);
 		
 		
 		return new ModelAndView("resultado",modelo);

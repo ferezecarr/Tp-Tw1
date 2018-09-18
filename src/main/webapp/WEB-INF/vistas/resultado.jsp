@@ -9,7 +9,7 @@
 <body>
 
 	<h2>
-		El resultado de operación "${operacion}" de ${valor} es ${resultado}
+		El resultado de la operación "${operacion}" de "${valor}" es: "${resultado}"
 	</h2>
 
 </body>
