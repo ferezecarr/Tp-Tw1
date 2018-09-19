@@ -29,6 +29,9 @@ public class ControladorCaracteres {
 				break;
 			
 			case "cantidadDeCaracteres":
+				StringBuilder build = new StringBuilder(valor);
+				resultado = build.length();
+				
 				break;
 			
 			default:
