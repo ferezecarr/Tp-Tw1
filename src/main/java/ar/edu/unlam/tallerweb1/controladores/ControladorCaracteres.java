@@ -29,11 +29,9 @@ public class ControladorCaracteres {
 				break;
 			
 			case "cantidadDeCaracteres":
-				StringBuilder build = new StringBuilder(valor);
-				resultado = build.length();
-				
+				int result = valor.length();
+				resultado = Integer.toString(result);
 				break;
-			
 			default:
 				return new ModelAndView("redirect:/error");
 		}
