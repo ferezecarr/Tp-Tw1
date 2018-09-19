@@ -68,7 +68,8 @@ public class TpTest extends SpringTest {
 		assertThat(paises).hasSize(2);
 		assertThat(paises).isNotEmpty();
 		assertThat(paises.get(0).getIdioma()).isEqualTo("Ingles");
-		assertThat(paises.get(0).getNombre());
+		assertThat(paises.get(0).getNombre()).isEqualTo("Inglaterra");
+		assertThat(paises.get(1).getNombre()).isEqualTo("Estados Unidos");
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -149,7 +150,8 @@ public class TpTest extends SpringTest {
 		assertThat(paises).hasSize(2);
 		assertThat(paises).isNotEmpty();
 		assertThat(paises).isNotNull();
-		assertThat(paises.get(0).getNombre());
+		assertThat(paises.get(0).getNombre()).isEqualTo("Canada");
+		assertThat(paises.get(1).getNombre()).isEqualTo("Inglaterra");
 	}
 	
 	@Transactional
